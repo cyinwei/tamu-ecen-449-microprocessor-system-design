@@ -1,0 +1,42 @@
+#1 module 4bit_adder(a,b,c,d)
+  module 4bit_adder(a,b,c,d); //missing the semicolon
+
+#2 input a=0, b=1, c;
+  input a, b, c; //illegal syntax with a=0, b=1.  
+  assign a = 0;  //fixed with assigns
+  assign b = 1;
+
+#3 output d; //this line is syntaxically good
+  output [3:0] d; //since it's a 4 bit adder, we want this semantically
+
+#4 reg e, f; //this line is good syntaxically
+  reg [1:0] e, f; //we probably want this since we're adding two 1 bit values semantically
+
+#5 e<=a+b;
+  always
+    e<=a+b; //nonblocking statements needs to within an always block
+
+#6 always@(posedge a or b) //this line is syntaxically good
+  always@(a or b) //although we probably want this semantically
+
+#7 begin //this line is good
+
+#8 if(c=b)f<=1;
+  if (c == b) f<=1; //needs == for equality, not assignment.
+  //also needs a space between the end of the condition and the execution block.
+
+#9 end //this line is good
+
+#10 always@(c) //this line is good
+
+#11 begin //this line is good
+
+#12 if(c)f<=a&&b;
+  if (c) f<= a & b; //we want the bitwise and operator, not &&
+  
+#13 assign d=a+b;
+  d <= a + b; //since we're in an always block, we can use a nonblocking assignment instead
+
+#14 end //this line is good
+
+endmodule //needs a endmodule at the end to close, syntax.
