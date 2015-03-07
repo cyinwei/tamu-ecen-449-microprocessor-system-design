@@ -1,0 +1,40 @@
+#Hypothetical Makefile
+mp3codec: mp3 main.o mp3 utils.o mp3 codec.o
+gcc -o mp3codec mp3 main.o mp3 utils.o mp3 codec.o
+mp3 main.o: mp3 main.c mp3.h mp3 int.h
+gcc -c mp3 main.o
+mp3 utils.o: mp3 utils.c mp3.h mp3 int.h
+gcc -c mp3 utils.o
+mp3 codec.o: mp3 codec.c mp3.h mp3 int.h
+gcc -c mp3 codec.o
+clean:
+rm -rf *.o mp3codec mp3 utils.c
+
+##Question A
+#Suppose all required files are present, and I run the makefile successfully. Now I modify mp3.h.
+#Assume that there is no error after modification. What are the files that get regenerated?
+
+The files that are recompiled are the one who explicitly have mp3.h as a dependency.  Therefore, it's
+ [mp3 main.o],[mp3 utils.o],[mp3 codec.o].
+
+##Question B
+#Suppose I realize that I need to add some constants in mp3utils.c whose declarations are
+#found in newheader.h header file. I make the appropriate changes in mp3utils.c (assume
+#there is no error in the new C-code I write). But I am not sure where should I put newheader.h
+#file in the above makefile. Suggest where newheader.h file should be put in above make file.
+
+newheader.h should be put on this line:
+  mp3 utils.o: mp3 utils.c mp3.h mp3 int.h
+  [changed to] 
+     mp3 utils.o: mp3 utils.c mp3.h mp3 int.h newheader.h
+Note this is line 6, the declaration for mp3 utils.o.
+
+##Question C
+#Suppose I run make clean. What is the problem I will encounter in subsequent compilations
+#of my code?
+
+Our make clean is poorly written.  It will not just remove the object files or the exectutable,
+ but will also remove *mp3 utils.c*, a necessary source file for [mp3 utils.o].  Therefore, the next
+ time we compile, there will be utils.c, giving a error from the make command.  We would need to
+ reimport the file again to make it work.
+
