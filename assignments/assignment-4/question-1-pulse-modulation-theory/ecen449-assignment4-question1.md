@@ -9,4 +9,6 @@ $$\frac{14 bits}{\mu seconds} * \frac{10^{6} \u seconds}{second} = \frac{14Mbits
 
 ###B. Revised SuperMegaX-3
 
-With the revised pulse modulation, we change the period of the PPM to 0.125 microseconds.  
+With the revised pulse modulation, we change the period of the PPM to 0.125 microseconds, and lengthen the period of the PWM to 0.375 microseconds.  However, that doesn't change the effective bit rate, since the different values passed are still the same; it just changes the windows which the signals are multiplexed.
+
+So the effective bit rate is still 14Mbits per second. 

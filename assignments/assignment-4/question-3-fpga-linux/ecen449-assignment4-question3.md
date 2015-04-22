@@ -1,4 +1,4 @@
-##Question 4
+##Question 3
 (a) `chmod 740 fpga`
 (b) `wget http://www.fpga.com/bitstream.gz`
 (c) `tar -zxvf bitstream.gz`
